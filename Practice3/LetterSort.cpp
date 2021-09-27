@@ -5,18 +5,19 @@ using namespace std;
 
 string getString(){
     srand(time(0));
-    string s(30, '0'), dict = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    string s(30, '0'), dict = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
     for (int i = 0; i < 30; ++i) {
-        s[i] = dict[rand() % 26];
+        s[i] = dict[rand() % 52];
     }
     return s;
 }
 
 int main() {
 
-    string s = getString(), sorted, dict = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    int c[26];
-    for (int i = 0; i < 26; i++)
+    string s = getString(), sorted, dict = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
+    int c[52];
+    cout << s << endl;
+    for (int i = 0; i < 52; i++)
     {
         c[i] = 0;
     }
@@ -24,7 +25,7 @@ int main() {
     {
         c[dict.find(s[i])] += 1;
     }
-    for (int i = 0; i < 26; i++)
+    for (int i = 0; i < 52; i++)
     {
         for (int j = 0; j < c[i]; j++)
         {
