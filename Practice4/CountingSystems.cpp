@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <string>
 using namespace std;
 
 vector<int> recognize(vector<char> x) {
@@ -27,7 +28,7 @@ vector<int> recognize(vector<char> x) {
     return reinterpret_cast<const vector<int> &>(result);
 }
 
-int to10(vector<int> x, int base) {
+int to10(const vector<int>& x, int base) {
     int result = 0;
     int degree = x.size()-1;
     for (int i : x) {
@@ -37,22 +38,39 @@ int to10(vector<int> x, int base) {
     return result;
 }
 
-int toBase(int x, int base) {
-    int result = 0;
+string numToLet(int a) {
+    if (a == 10) {
+        return "A";
+    } else if (a == 11) {
+        return "B";
+    } else if (a == 12) {
+        return "C";
+    } else if (a == 13) {
+        return "D";
+    } else if (a == 14) {
+        return "E";
+    } else if (a == 15) {
+        return "F";
+    }
+}
+
+string toBase16(int x, int base) {
+    string result;
     vector<int> b;
     while (x > 0) {
         b.insert(b.cbegin(),1, x%base);
         x /= base;
     }
-    int degree = b.size()-1;
+    reverse(begin(b), end(b));
     for (int i : b) {
-        result = result + i * pow(10, degree);
-        --degree;
+        if (i < 10) result += to_string(i);
+        else result += numToLet(i);
     }
-    return result;
+    string rev = string(result.rbegin(),result.rend());
+    return rev;
 }
 
-vector<int> transform(string x){
+vector<int> transform(const string& x){
     vector<char> a;
     // split number
     for (char i : x) {
@@ -66,11 +84,11 @@ vector<int> transform(string x){
 }
 
 bool checkSystems(int s_from, int s_to){
-    if (s_from < 2 || s_from > 36) {
+    if (s_from < 2 || s_from > 16) {
         cout << "Incorrect base system\n";
         return false;
     }
-    if (s_to < 2 || s_to > 36) {
+    if (s_to < 2 || s_to > 16) {
         cout << "Incorrect end system\n";
         return false;
     }
@@ -114,10 +132,10 @@ int main() {
             }
             else{
                 // cast to user base
-                int num_based = toBase(num10, sys_to);
+                string num_based = toBase16(num10, sys_to);
                 // cast to negative if needed
-                if (negative) num_based = 0 - num_based;
-                cout << num_based << endl;
+                if (negative) cout << '-' << num_based << endl;
+                else cout << num_based << endl;
             }
         }
         else cout << "Error occurred! Digits are greater than base value!\n";
