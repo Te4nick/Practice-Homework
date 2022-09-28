@@ -15,8 +15,8 @@ int main()
 			"remove <id> - remove entry\n" <<
 			"find <id> - find entry by id\n" <<
 			"print - prints HashMap\n" <<
-			"set - set default values" <<
-			"clear - erase all data" <<
+			"set - set default values\n" <<
+			"clear - erase all data\n" <<
 			"exit - close program\n";
 		else if (command == "incert")
 		{
